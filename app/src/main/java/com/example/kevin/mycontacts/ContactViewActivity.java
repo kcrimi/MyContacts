@@ -26,7 +26,7 @@ import java.util.ArrayList;
 
 public class ContactViewActivity extends ActionBarActivity {
     private static final String TAG = "ActionBarActivity";
-    public static final String EXTRA = ContactViewFragment.EXTRA;
+    public static final String EXTRA = "CVA_Contact";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +35,7 @@ public class ContactViewActivity extends ActionBarActivity {
 
         if(getFragmentManager().findFragmentById(R.id.view_fragment_container) == null){
             ContactViewFragment cvf = new ContactViewFragment();
-            cvf.setArguments(getIntent().getExtras());
+            cvf.setPosition(getIntent().getIntExtra(EXTRA, 0));
             getFragmentManager().beginTransaction()
                     .add(R.id.view_fragment_container, cvf)
                     .commit();
