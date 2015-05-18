@@ -1,6 +1,7 @@
 package com.example.kevin.mycontacts;
 
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -36,6 +37,7 @@ public class ContactViewFragment extends Fragment {
     private int mPosition;
     private TextView mContactName;
     private FieldsAdapter mAdapter;
+    private Contract mContract;
 
     public ContactViewFragment() {
         // Required empty public constructor
@@ -65,9 +67,7 @@ public class ContactViewFragment extends Fragment {
             public boolean onMenuItemClick(MenuItem menuItem) {
                 int id = menuItem.getItemId();
                 if(id == R.id.contact_view_edit){
-                    Intent i = new Intent(getActivity(),ContactEditActivity.class);
-                    i.putExtra(ContactEditActivity.EXTRA, mPosition);
-                    startActivity(i);
+                    mContract.selectEditPosition(mPosition);
                     return true;
                 }
                 return false;
@@ -172,6 +172,22 @@ public class ContactViewFragment extends Fragment {
     }
 
     @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        try {
+            mContract = (Contract)getActivity();
+        } catch (ClassCastException e) {
+            throw new IllegalStateException("Activity does not implement interface");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mContract = null;
+    }
+
+    @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         // Inflate the menu; this adds items to the action bar if it is present.
         inflater.inflate(R.menu.menu_contact_view, menu);
@@ -190,6 +206,10 @@ public class ContactViewFragment extends Fragment {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public interface Contract{
+        public void selectEditPosition(int position);
     }
 
 }

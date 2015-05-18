@@ -24,7 +24,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 
-public class ContactViewActivity extends ActionBarActivity {
+public class ContactViewActivity extends ActionBarActivity implements ContactViewFragment.Contract{
     private static final String TAG = "ActionBarActivity";
     public static final String EXTRA = "CVA_Contact";
 
@@ -40,5 +40,12 @@ public class ContactViewActivity extends ActionBarActivity {
                     .add(R.id.view_fragment_container, cvf)
                     .commit();
         }
+    }
+
+    @Override
+    public void selectEditPosition(int position) {
+        Intent i = new Intent(this,ContactEditActivity.class);
+        i.putExtra(ContactEditActivity.EXTRA, position);
+        startActivity(i);
     }
 }
