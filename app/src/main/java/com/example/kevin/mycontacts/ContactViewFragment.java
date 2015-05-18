@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.app.Fragment;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -30,14 +31,13 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ContactViewFragment extends Fragment {
+public class ContactViewFragment extends ContractFragment<ContactViewFragment.Contract> {
 
     private int mColor;
     private Contact mContact;
     private int mPosition;
     private TextView mContactName;
     private FieldsAdapter mAdapter;
-    private Contract mContract;
 
     public ContactViewFragment() {
         // Required empty public constructor
@@ -67,7 +67,7 @@ public class ContactViewFragment extends Fragment {
             public boolean onMenuItemClick(MenuItem menuItem) {
                 int id = menuItem.getItemId();
                 if(id == R.id.contact_view_edit){
-                    mContract.selectEditPosition(mPosition);
+                    getContract().selectEditPosition(mPosition);
                     return true;
                 }
                 return false;
@@ -169,22 +169,6 @@ public class ContactViewFragment extends Fragment {
     public void onResume(){
         super.onResume();
         update();
-    }
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        try {
-            mContract = (Contract)getActivity();
-        } catch (ClassCastException e) {
-            throw new IllegalStateException("Activity does not implement interface");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mContract = null;
     }
 
     @Override
