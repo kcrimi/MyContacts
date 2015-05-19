@@ -40,7 +40,7 @@ public class ContactEditActivity extends ActionBarActivity {
                 mContact.phoneNumbers.clear();
                 mContact.emails.clear();
                 mContact.phoneNumbers.addAll(getSectionValues(R.id.phoneNumber_section));
-                mContact.emails = getSectionValues(R.id.email_section);
+                mContact.emails.addAll(getSectionValues(R.id.email_section));
 
                 Toast.makeText(ContactEditActivity.this, "Saved Contact", Toast.LENGTH_LONG)
                         .show();

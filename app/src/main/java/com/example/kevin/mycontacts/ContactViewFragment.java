@@ -131,6 +131,8 @@ public class ContactViewFragment extends ContractFragment<ContactViewFragment.Co
                 } else {
                     iv.setImageResource(R.drawable.ic_call);
                 }
+            } else {
+                iv.setImageResource(android.R.color.transparent);
             }
             iv.setColorFilter(mColor);
             return convertView;
